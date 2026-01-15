@@ -22,79 +22,35 @@
 <meta name="google-site-verification" content="JI64Rt-otdS5-xJmty37aXKDiaK1OlmzVt40t3e87vk" /> 
 </head>
 <body>
-  <h1>Timestamp Converter</h1>
-  <p class="muted">유닉스 타임스탬프(초/밀리초) ↔ 날짜 변환</p>
+ <h1>Developer Tools</h1>
+<p>자주 쓰는 개발자용 온라인 도구 모음입니다.</p>
 
-  <div class="card">
-    <h3>Timestamp → Date</h3>
-    <input id="ts" placeholder="예: 1700000000 또는 1700000000000" />
-    <div class="row" style="margin-top:8px;">
-      <button onclick="toDate()">변환</button>
-      <button onclick="nowTs()">지금 값 넣기</button>
-    </div>
-    <p id="tsOut" class="muted"></p>
-  </div>
+<ul style="margin-top:24px; line-height:1.8;">
+  <li>
+    <a href="/json/"><strong>JSON Formatter</strong></a><br>
+    <span style="color:#666; font-size:14px;">
+      JSON 정렬 및 유효성 검사
+    </span>
+  </li>
 
-  <div class="card">
-    <h3>Date → Timestamp</h3>
-    <input id="dt" placeholder="예: 2026-01-15 12:34:56 (로컬 시간)" />
-    <div class="row" style="margin-top:8px;">
-      <button onclick="toTs()">변환</button>
-      <button onclick="nowDt()">지금 값 넣기</button>
-    </div>
-    <p id="dtOut" class="muted"></p>
-  </div>
+  <li style="margin-top:12px;">
+    <a href="/base64/"><strong>Base64 Encode / Decode</strong></a><br>
+    <span style="color:#666; font-size:14px;">
+      문자열 Base64 인코딩/디코딩
+    </span>
+  </li>
 
-  <p class="muted">팁: 초/밀리초 자동 판별. 결과는 로컬 시간 기준.</p>
+  <li style="margin-top:12px;">
+    <a href="/uuid/"><strong>UUID Generator</strong></a><br>
+    <span style="color:#666; font-size:14px;">
+      UUID v4 랜덤 생성기
+    </span>
+  </li>
+</ul>
 
-<script>
-  function toDate() {
-    const v = document.getElementById('ts').value.trim();
-    if (!v) return set('tsOut', '값을 입력해줘.');
-    const n = Number(v);
-    if (!Number.isFinite(n)) return set('tsOut', '숫자만 입력해줘.');
-
-    // 13자리면 ms로 간주
-    const ms = String(Math.trunc(n)).length >= 13 ? n : n * 1000;
-    const d = new Date(ms);
-    if (isNaN(d.getTime())) return set('tsOut', '해석할 수 없는 값이야.');
-
-    set('tsOut', `로컬 시간: <code>${fmt(d)}</code> / ISO: <code>${d.toISOString()}</code>`);
-  }
-
-  function toTs() {
-    const s = document.getElementById('dt').value.trim();
-    if (!s) return set('dtOut', '값을 입력해줘.');
-
-    // "YYYY-MM-DD HH:mm:ss" 형태 지원
-    const normalized = s.replace(' ', 'T');
-    const d = new Date(normalized);
-    if (isNaN(d.getTime())) return set('dtOut', '예: 2026-01-15 12:34:56 처럼 입력해줘.');
-
-    const ms = d.getTime();
-    set('dtOut', `초: <code>${Math.floor(ms/1000)}</code> / 밀리초: <code>${ms}</code>`);
-  }
-
-  function nowTs() {
-    const ms = Date.now();
-    document.getElementById('ts').value = String(ms);
-    toDate();
-  }
-
-  function nowDt() {
-    const d = new Date();
-    document.getElementById('dt').value = fmt(d);
-    toTs();
-  }
-
-  function fmt(d){
-    const p = (x)=> String(x).padStart(2,'0');
-    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
-  }
-  function set(id, html){ document.getElementById(id).innerHTML = html; }
-</script>
 </body>
 </html>
+
 
 
 
