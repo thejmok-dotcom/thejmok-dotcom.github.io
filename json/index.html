@@ -1,11 +1,106 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>JSON Formatter</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSON Formatter | JSON Pretty Print & Validate</title>
+  <meta name="description" content="JSON을 보기 좋게 정렬하고 오류를 검사하는 무료 JSON Formatter 도구입니다." />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    h1 { margin-bottom: 8px; }
+    textarea {
+      width: 100%;
+      height: 260px;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .error {
+      color: #c00;
+      margin-top: 10px;
+    }
+    .success {
+      color: #0a7;
+      margin-top: 10px;
+    }
+    a { color: #0366d6; text-decoration: none; }
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
+
   <h1>JSON Formatter</h1>
-  <p>JSON을 보기 좋게 정렬하는 도구</p>
+  <p>JSON을 보기 좋게 정렬하고 유효성을 검사하는 간단한 온라인 도구입니다.</p>
+
+  <textarea id="input" placeholder='여기에 JSON을 붙여넣으세요'></textarea>
+
+  <div class="row">
+    <button onclick="formatJson()">Format</button>
+    <button onclick="minifyJson()">Minify</button>
+    <button onclick="clearJson()">Clear</button>
+  </div>
+
+  <div id="message"></div>
+
+  <footer>
+    <p><a href="/">← 메인으로 돌아가기</a></p>
+  </footer>
+
+<script>
+  function formatJson() {
+    const input = document.getElementById('input');
+    const msg = document.getElementById('message');
+    try {
+      const obj = JSON.parse(input.value);
+      input.value = JSON.stringify(obj, null, 2);
+      msg.innerHTML = '<div class="success">✔ 유효한 JSON입니다.</div>';
+    } catch (e) {
+      msg.innerHTML = '<div class="error">❌ JSON 오류: ' + e.message + '</div>';
+    }
+  }
+
+  function minifyJson() {
+    const input = document.getElementById('input');
+    const msg = document.getElementById('message');
+    try {
+      const obj = JSON.parse(input.value);
+      input.value = JSON.stringify(obj);
+      msg.innerHTML = '<div class="success">✔ Minify 완료</div>';
+    } catch (e) {
+      msg.innerHTML = '<div class="error">❌ JSON 오류: ' + e.message + '</div>';
+    }
+  }
+
+  function clearJson() {
+    document.getElementById('input').value = '';
+    document.getElementById('message').innerHTML = '';
+  }
+</script>
+
 </body>
 </html>
