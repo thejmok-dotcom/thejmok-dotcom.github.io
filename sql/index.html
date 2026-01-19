@@ -1,24 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Base64 Encode / Decode | Base64 변환기</title>
+
+  <!-- AdSense 공통 로더 -->
+  <script src="../js/ads.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7009230262375984"
+     crossorigin="anonymous"></script>
+
+  
+  <meta name="description" content="문자열을 Base64로 인코딩하거나 디코딩하는 간단한 온라인 도구입니다." />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    h1 { margin-bottom: 8px; }
+    textarea {
+      width: 100%;
+      height: 220px;
+      font-family: monospace;
+      font-size: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .error {
+      color: #c00;
+      margin-top: 10px;
+    }
+    .success {
+      color: #0a7;
+      margin-top: 10px;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 13px;
+      color: #666;
+    }
+    a { color: #0366d6; text-decoration: none; }
+  </style>
+</head>
 <body>
 
-  <h1>SQL Formatter</h1>
-  <p>SQL 쿼리를 보기 좋게 정렬하는 간단한 온라인 도구입니다.</p>
+  <h1>Base64 Encode / Decode</h1>
+  <p>문자열을 Base64로 인코딩하거나 디코딩하는 간단한 도구입니다.</p>
 
-  <textarea id="input" placeholder="여기에 SQL을 붙여넣으세요"></textarea>
+  <textarea id="input" placeholder="여기에 텍스트를 입력하세요"></textarea>
 
   <div class="row">
-    <button onclick="formatSQL()">Format</button>
-    <button onclick="clearSQL()">Clear</button>
-
-    <select id="db">
-      <option value="sql">Standard SQL</option>
-      <option value="mysql">MySQL</option>
-      <option value="postgresql">PostgreSQL</option>
-    </select>
-
-    <label>
-      <input type="checkbox" id="upper" checked>
-      키워드 대문자
-    </label>
+    <button onclick="encode()">Encode</button>
+    <button onclick="decode()">Decode</button>
+    <button onclick="clearText()">Clear</button>
   </div>
 
   <div id="message"></div>
@@ -27,32 +78,34 @@
     <p><a href="/">← 메인으로 돌아가기</a></p>
   </footer>
 
-  <!-- sql-formatter CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.4.0/dist/sql-formatter.min.js"></script>
-
-  <script>
-    function formatSQL() {
-      const input = document.getElementById('input');
-      const msg = document.getElementById('message');
-
-      try {
-        const formatted = sqlFormatter.format(input.value, {
-          language: document.getElementById('db').value,
-          uppercase: document.getElementById('upper').checked,
-          indent: "  "
-        });
-
-        input.value = formatted;
-        msg.innerHTML = '<div class="success">✔ SQL 정렬 완료</div>';
-      } catch (e) {
-        msg.innerHTML = '<div class="error">❌ SQL 파싱 오류: ' + e.message + '</div>';
-      }
+<script>
+  function encode() {
+    const input = document.getElementById('input');
+    const msg = document.getElementById('message');
+    try {
+      input.value = btoa(unescape(encodeURIComponent(input.value)));
+      msg.innerHTML = '<div class="success">✔ Base64 인코딩 완료</div>';
+    } catch (e) {
+      msg.innerHTML = '<div class="error">❌ 인코딩 실패</div>';
     }
+  }
 
-    function clearSQL() {
-      document.getElementById('input').value = '';
-      document.getElementById('message').innerHTML = '';
+  function decode() {
+    const input = document.getElementById('input');
+    const msg = document.getElementById('message');
+    try {
+      input.value = decodeURIComponent(escape(atob(input.value)));
+      msg.innerHTML = '<div class="success">✔ Base64 디코딩 완료</div>';
+    } catch (e) {
+      msg.innerHTML = '<div class="error">❌ 디코딩 실패 (유효한 Base64가 아닙니다)</div>';
     }
-  </script>
+  }
+
+  function clearText() {
+    document.getElementById('input').value = '';
+    document.getElementById('message').innerHTML = '';
+  }
+</script>
 
 </body>
+</html>
