@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JSON Formatter | JSON Pretty Print & Validate</title>
-  <meta name="description" content="JSON을 보기 좋게 정렬하고 오류를 검사하는 무료 JSON Formatter 도구입니다." />
+  <meta name="description" content="An online tool to format and validate JSON for better readability." />
 
   <!-- AdSense 공통 로더 -->
   <script src="../js/ads.js"></script>
@@ -61,9 +61,9 @@
 <body>
 
   <h1>JSON Formatter</h1>
-  <p>JSON을 보기 좋게 정렬하고 유효성을 검사하는 간단한 온라인 도구입니다.</p>
+  <p>An online tool to format and validate JSON for better readability.</p>
 
-  <textarea id="input" placeholder='여기에 JSON을 붙여넣으세요'></textarea>
+  <textarea id="input" placeholder='Paste JSON here'></textarea>
 
   <div class="row">
     <button onclick="formatJson()">Format</button>
@@ -74,7 +74,7 @@
   <div id="message"></div>
 
   <footer>
-    <p><a href="/">← 메인으로 돌아가기</a></p>
+    <p><a href="/">← Back to Home</a></p>
   </footer>
 
 <script>
@@ -84,9 +84,9 @@
     try {
       const obj = JSON.parse(input.value);
       input.value = JSON.stringify(obj, null, 2);
-      msg.innerHTML = '<div class="success">✔ 유효한 JSON입니다.</div>';
+      msg.innerHTML = '<div class="success">✔ Valid JSON.</div>';
     } catch (e) {
-      msg.innerHTML = '<div class="error">❌ JSON 오류: ' + e.message + '</div>';
+      msg.innerHTML = '<div class="error">❌ JSON Error: ' + e.message + '</div>';
     }
   }
 
@@ -96,9 +96,9 @@
     try {
       const obj = JSON.parse(input.value);
       input.value = JSON.stringify(obj);
-      msg.innerHTML = '<div class="success">✔ Minify 완료</div>';
+      msg.innerHTML = '<div class="success">✔ Minification completed.</div>';
     } catch (e) {
-      msg.innerHTML = '<div class="error">❌ JSON 오류: ' + e.message + '</div>';
+      msg.innerHTML = '<div class="error">❌ JSON Error: ' + e.message + '</div>';
     }
   }
 
@@ -107,6 +107,7 @@
     document.getElementById('message').innerHTML = '';
   }
 </script>
+
 
 </body>
 </html>
