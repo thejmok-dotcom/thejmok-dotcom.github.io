@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>UUID Generator | UUID v4 생성기</title>
-  <meta name="description" content="UUID v4를 즉시 생성하는 간단한 무료 UUID Generator입니다." />
+  <title>UUID Generator (v4)</title>
+  <meta name="description" content="A simple and free online UUID v4 generator that instantly creates random UUIDs." />
+
 
   <!-- AdSense 공통 로더 -->
   <script src="../js/ads.js"></script>
@@ -62,7 +63,7 @@
 <body>
 
   <h1>UUID Generator (v4)</h1>
-  <p>버튼 한 번으로 UUID v4를 생성합니다.</p>
+  <p>Generate a UUID v4 instantly with a single click.</p>
 
   <input id="uuid" readonly />
 
@@ -74,16 +75,15 @@
   <div id="message"></div>
 
   <p class="muted">
-    RFC 4122 규격의 UUID v4 (랜덤 기반)
+    RFC 4122–compliant UUID v4 (random-based)
   </p>
 
   <footer>
-    <p><a href="/">← 메인으로 돌아가기</a></p>
+    <p><a href="/">← Back to Home</a></p>
   </footer>
 
 <script>
   function generate() {
-    // crypto API가 있으면 사용 (권장)
     if (window.crypto && crypto.randomUUID) {
       document.getElementById('uuid').value = crypto.randomUUID();
     } else {
@@ -96,7 +96,7 @@
         });
     }
     document.getElementById('message').innerHTML =
-      '<div class="success">✔ 새 UUID 생성됨</div>';
+       '<div class="success">✔ New UUID generated</div>';
   }
 
   function copy() {
@@ -106,10 +106,10 @@
     input.setSelectionRange(0, 99999);
     document.execCommand('copy');
     document.getElementById('message').innerHTML =
-      '<div class="success">✔ 클립보드에 복사됨</div>';
+       '<div class="success">✔ Copied to clipboard</div>';
   }
 
-  // 페이지 열리면 하나 자동 생성
+  
   generate();
 </script>
 
