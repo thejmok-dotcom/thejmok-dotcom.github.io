@@ -1,0 +1,58 @@
+<body>
+
+  <h1>SQL Formatter</h1>
+  <p>SQL 쿼리를 보기 좋게 정렬하는 간단한 온라인 도구입니다.</p>
+
+  <textarea id="input" placeholder="여기에 SQL을 붙여넣으세요"></textarea>
+
+  <div class="row">
+    <button onclick="formatSQL()">Format</button>
+    <button onclick="clearSQL()">Clear</button>
+
+    <select id="db">
+      <option value="sql">Standard SQL</option>
+      <option value="mysql">MySQL</option>
+      <option value="postgresql">PostgreSQL</option>
+    </select>
+
+    <label>
+      <input type="checkbox" id="upper" checked>
+      키워드 대문자
+    </label>
+  </div>
+
+  <div id="message"></div>
+
+  <footer>
+    <p><a href="/">← 메인으로 돌아가기</a></p>
+  </footer>
+
+  <!-- sql-formatter CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/sql-formatter@15.4.0/dist/sql-formatter.min.js"></script>
+
+  <script>
+    function formatSQL() {
+      const input = document.getElementById('input');
+      const msg = document.getElementById('message');
+
+      try {
+        const formatted = sqlFormatter.format(input.value, {
+          language: document.getElementById('db').value,
+          uppercase: document.getElementById('upper').checked,
+          indent: "  "
+        });
+
+        input.value = formatted;
+        msg.innerHTML = '<div class="success">✔ SQL 정렬 완료</div>';
+      } catch (e) {
+        msg.innerHTML = '<div class="error">❌ SQL 파싱 오류: ' + e.message + '</div>';
+      }
+    }
+
+    function clearSQL() {
+      document.getElementById('input').value = '';
+      document.getElementById('message').innerHTML = '';
+    }
+  </script>
+
+</body>
