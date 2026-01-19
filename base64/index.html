@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Base64 Encode / Decode | Base64 변환기</title>
+   <title>Base64 Encode / Decode | Online Base64 Converter</title>
 
   <!-- AdSense 공통 로더 -->
   <script src="../js/ads.js"></script>
@@ -62,10 +62,11 @@
 <body>
 
   <h1>Base64 Encode / Decode</h1>
-  <p>문자열을 Base64로 인코딩하거나 디코딩하는 간단한 도구입니다.</p>
+  <p>A simple tool to encode or decode strings using Base64.</p>
 
-  <textarea id="input" placeholder="여기에 텍스트를 입력하세요"></textarea>
+  <textarea id="input" placeholder="Enter text here"></textarea>
 
+  
   <div class="row">
     <button onclick="encode()">Encode</button>
     <button onclick="decode()">Decode</button>
@@ -75,7 +76,7 @@
   <div id="message"></div>
 
   <footer>
-    <p><a href="/">← 메인으로 돌아가기</a></p>
+    <p><a href="/">← Back to Home</a></p>
   </footer>
 
 <script>
@@ -84,9 +85,9 @@
     const msg = document.getElementById('message');
     try {
       input.value = btoa(unescape(encodeURIComponent(input.value)));
-      msg.innerHTML = '<div class="success">✔ Base64 인코딩 완료</div>';
+      msg.innerHTML = '<div class="success">✔ Base64 encoding completed.</div>';
     } catch (e) {
-      msg.innerHTML = '<div class="error">❌ 인코딩 실패</div>';
+      msg.innerHTML = '<div class="error">❌ Encoding failed.</div>';
     }
   }
 
@@ -95,9 +96,9 @@
     const msg = document.getElementById('message');
     try {
       input.value = decodeURIComponent(escape(atob(input.value)));
-      msg.innerHTML = '<div class="success">✔ Base64 디코딩 완료</div>';
+      msg.innerHTML = '<div class="success">✔ Base64 decoding completed.</div>';
     } catch (e) {
-      msg.innerHTML = '<div class="error">❌ 디코딩 실패 (유효한 Base64가 아닙니다)</div>';
+      msg.innerHTML = '<div class="error">❌ Decoding failed (invalid Base64 input).</div>';
     }
   }
 
@@ -106,6 +107,7 @@
     document.getElementById('message').innerHTML = '';
   }
 </script>
+
 
 </body>
 </html>
