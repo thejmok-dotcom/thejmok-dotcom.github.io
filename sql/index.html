@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SQL 쿼리를 보기 좋게 정렬하는 간단한 온라인</title>
+  <title>SQL Formatter | Format SQL Queries Online</title>
 
   <!-- AdSense 공통 로더 -->
   <script src="../js/ads.js"></script>
@@ -11,7 +11,8 @@
      crossorigin="anonymous"></script>
 
   
-  <meta name="description" content="SQL 쿼리를 보기 좋게 정렬하는 간단한 온라인" />
+  <meta name="description" content="A simple online SQL formatter to format and beautify SQL queries for better readability." />
+
   <style>
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
@@ -62,9 +63,9 @@
 <body>
 
   <h1>SQL Formatter</h1>
-  <p>SQL 쿼리를 보기 좋게 정렬하는 간단한 온라인 도구입니다.</p>
+  <p>A simple online tool to format SQL queries for better readability.</p>
 
-  <textarea id="input" placeholder="여기에 SQL을 붙여넣으세요"></textarea>
+  <textarea id="input" placeholder="Paste your SQL query here"></textarea>
 
   <div class="row">
     <button onclick="formatSQL()">Format</button>
@@ -80,7 +81,7 @@
   <div id="message"></div>
 
   <footer>
-    <p><a href="/">← 메인으로 돌아가기</a></p>
+    <p><a href="/">← Back to Home</a></p>
   </footer>
 
   <!-- SQL Formatter CDN -->
@@ -99,9 +100,11 @@
         });
 
         input.value = formatted;
-        msg.innerHTML = '<div class="success">✔ SQL 정렬 완료</div>';
-      } catch (e) {
-        msg.innerHTML = '<div class="error">❌ SQL 오류: ' + e.message + '</div>';
+     msg.innerHTML = '<div class="success">✔ SQL formatted successfully</div>';
+} catch (e) {
+  msg.innerHTML = '<div class="error">❌ SQL error: ' + e.message + '</div>';
+}
+
       }
     }
 
