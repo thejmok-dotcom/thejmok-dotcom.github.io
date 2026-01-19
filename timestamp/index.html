@@ -45,6 +45,7 @@
     <div class="row" style="margin-top:8px;">
       <button onclick="toDate()">Convert</button>
     <button onclick="nowTs()">Use Current Time</button>
+      <button onclick="clearDate()">Clear</button>
     </div>
     <p id="tsOut" class="muted"></p>
   </div>
@@ -55,6 +56,7 @@
     <div class="row" style="margin-top:8px;">
       <button onclick="toTs()">Convert</button>
       <button onclick="nowDt()">Use Current Time</button>
+      <button onclick="clearTs()">Clear</button>
     </div>
     <p id="dtOut" class="muted"></p>
   </div>
@@ -121,6 +123,17 @@
   function set(id, html) {
     document.getElementById(id).innerHTML = html;
   }
+
+   function clearDate() {
+    document.getElementById('ts').value = '';
+    document.getElementById('tsOut').innerHTML = '';
+  }
+
+  function clearTs() {
+    document.getElementById('dt').value = '';
+    document.getElementById('dtOut').innerHTML = '';
+  }
+
 </script>
 
 </body>
