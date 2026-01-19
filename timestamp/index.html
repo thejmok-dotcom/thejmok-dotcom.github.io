@@ -31,65 +31,74 @@
     }
     a { color: #0366d6; text-decoration: none; }
   </style>
+
+  <meta name="description" content="Convert Unix timestamps (seconds or milliseconds) to human-readable dates and convert dates back to timestamps." />
+
 </head>
 <body>
-  <h1>Timestamp Converter</h1>
-  <p class="muted">유닉스 타임스탬프(초/밀리초) ↔ 날짜 변환</p>
+ <h1>Timestamp Converter</h1>
+<p class="muted">Convert Unix timestamps (seconds/milliseconds) ↔ dates</p>
 
   <div class="card">
     <h3>Timestamp → Date</h3>
     <input id="ts" placeholder="예: 1700000000 또는 1700000000000" />
     <div class="row" style="margin-top:8px;">
-      <button onclick="toDate()">변환</button>
-      <button onclick="nowTs()">지금 값 넣기</button>
+      <button onclick="toDate()">Convert</button>
+    <button onclick="nowTs()">Use Current Time</button>
     </div>
     <p id="tsOut" class="muted"></p>
   </div>
 
   <div class="card">
     <h3>Date → Timestamp</h3>
-    <input id="dt" placeholder="예: 2026-01-15 12:34:56 (로컬 시간)" />
+   <input id="dt" placeholder="e.g. 2026-01-15 12:34:56 (local time)" />
     <div class="row" style="margin-top:8px;">
-      <button onclick="toTs()">변환</button>
-      <button onclick="nowDt()">지금 값 넣기</button>
+      <button onclick="toTs()">Convert</button>
+      <button onclick="nowDt()">Use Current Time</button>
     </div>
     <p id="dtOut" class="muted"></p>
   </div>
 
-  <p class="muted">팁: 초/밀리초 자동 판별. 결과는 로컬 시간 기준.</p>
+  <p class="muted"> Tip: Automatically detects seconds or milliseconds. Results are based on local time.</p>
 
 
     <footer>
-    <p><a href="/">← 메인으로 돌아가기</a></p>
+    <p><a href="/">← Back to Home</a></p>
   </footer>
-
 
 <script>
   function toDate() {
     const v = document.getElementById('ts').value.trim();
-    if (!v) return set('tsOut', '값을 입력해줘.');
+    if (!v) return set('tsOut', 'Please enter a value.');
     const n = Number(v);
-    if (!Number.isFinite(n)) return set('tsOut', '숫자만 입력해줘.');
+    if (!Number.isFinite(n)) return set('tsOut', 'Please enter numbers only.');
 
-    // 13자리면 ms로 간주
+    // Treat 13+ digits as milliseconds
     const ms = String(Math.trunc(n)).length >= 13 ? n : n * 1000;
     const d = new Date(ms);
-    if (isNaN(d.getTime())) return set('tsOut', '해석할 수 없는 값이야.');
+    if (isNaN(d.getTime())) return set('tsOut', 'Unable to parse the value.');
 
-    set('tsOut', `로컬 시간: <code>${fmt(d)}</code> / ISO: <code>${d.toISOString()}</code>`);
+    set(
+      'tsOut',
+      `Local time: <code>${fmt(d)}</code> / ISO: <code>${d.toISOString()}</code>`
+    );
   }
 
   function toTs() {
     const s = document.getElementById('dt').value.trim();
-    if (!s) return set('dtOut', '값을 입력해줘.');
+    if (!s) return set('dtOut', 'Please enter a value.');
 
-    // "YYYY-MM-DD HH:mm:ss" 형태 지원
+    // Supports "YYYY-MM-DD HH:mm:ss" format
     const normalized = s.replace(' ', 'T');
     const d = new Date(normalized);
-    if (isNaN(d.getTime())) return set('dtOut', '예: 2026-01-15 12:34:56 처럼 입력해줘.');
+    if (isNaN(d.getTime()))
+      return set('dtOut', 'Example: 2026-01-15 12:34:56');
 
     const ms = d.getTime();
-    set('dtOut', `초: <code>${Math.floor(ms/1000)}</code> / 밀리초: <code>${ms}</code>`);
+    set(
+      'dtOut',
+      `Seconds: <code>${Math.floor(ms / 1000)}</code> / Milliseconds: <code>${ms}</code>`
+    );
   }
 
   function nowTs() {
@@ -104,11 +113,15 @@
     toTs();
   }
 
-  function fmt(d){
-    const p = (x)=> String(x).padStart(2,'0');
-    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+  function fmt(d) {
+    const p = (x) => String(x).padStart(2, '0');
+    return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
   }
-  function set(id, html){ document.getElementById(id).innerHTML = html; }
+
+  function set(id, html) {
+    document.getElementById(id).innerHTML = html;
+  }
 </script>
+
 </body>
 </html>
